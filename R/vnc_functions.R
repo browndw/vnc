@@ -1,32 +1,21 @@
 #' A function to test the "evenness" of a sequence.
 #' @param x A vector of integers or number
-#' @return A logical value
+#' @param ... additional parameters passed to default sequence method.
+#' @method A logical value
 #' @export
 is.sequence <- function(x, ...)
   UseMethod("is.sequence", x)
 
-#' Setting the default value for is.sequence methods.
-#' @param x A vector of integers or numbers
-#' @return A logical value
-#' @export
 is.sequence.default <- function(x, ...){
   FALSE
 }
 
-#' A function to test the "evenness" of a sequence.
-#' @param x A vector of numbers
-#' @return A logical value
-#' @export
 is.sequence.numeric <- function(x, tol = sqrt(.Machine$double.eps), ...){
   if(anyNA(x) || any(is.infinite(x)) || length(x) <= 1 || diff(x[1:2]) == 0)
     return(FALSE)
   diff(range(diff(x))) <= tol
 }
 
-#' A function to test the "evenness" of a sequence.
-#' @param x A vector of integers
-#' @return A logical value
-#' @export
 is.sequence.integer <- function(x, ...){
   is.sequence.numeric(x, ...)
 }
@@ -49,15 +38,15 @@ is.sequence.integer <- function(x, ...){
 #' @return An hclust object
 #' @export
 vnc_clust <- function (time, values, distance.measure = c("sd", "cv")) {
-
+  
   if (missing(distance.measure)) distance.measure <- "sd"
-
+  
   if(is.sequence(time) == F) stop ("Your data doesn't appear to be formatted correctly. You must have 2 columns: one for years (with no missing values) and one for a continuous variable")
-
+  
   input <- as.vector(values)
   years <- as.vector(time)
   names(input) <- years
-
+  
   data.collector <- list()
   data.collector[["0"]] <- input
   position.collector <- list()
@@ -94,34 +83,34 @@ vnc_clust <- function (time, values, distance.measure = c("sd", "cv")) {
   }
   hc.build <- data.frame(start = unlist(lapply(position.collector, min)),
                          end = unlist(lapply(position.collector, max)))
-
+  
   idx <- seq(1:nrow(hc.build))
-
+  
   y <- lapply(idx, function(i) match(hc.build$start[1:i-1], hc.build$start[i]))
   z <- lapply(idx, function(i) match(hc.build$end[1:i-1], hc.build$end[i]))
-
+  
   merge1 <- lapply(y, function(x) ifelse( !all(is.na(x)),
                                           max(which(x == 1), na.rm = T) -1, NA))
-
+  
   merge2 <- lapply(z, function(x) ifelse( !all(is.na(x)),
                                           max(which(x == 1), na.rm = T) -1, NA))
-
+  
   hc.build$merge1 <- lapply(idx, function(i) min(merge1[[i]], merge2[[i]], na.rm = F))
   hc.build$merge2 <- suppressWarnings(lapply(idx, function(i) max(merge1[[i]], merge2[[i]], na.rm = T)))
   hc.build$merge2<- replace(hc.build$merge2, hc.build$merge2 == -Inf, NA)
-
+  
   hc.build$merge1 <- ifelse(is.na(hc.build$merge1) == T & is.na(hc.build$merge2) == T, -hc.build$start, hc.build$merge1)
   hc.build$merge2 <- ifelse(is.na(hc.build$merge2) == T, -hc.build$end, hc.build$merge2)
-
+  
   to.merge <- lapply(idx, function(i) -setdiff(unlist(hc.build[i,1:2]), unlist(hc.build[2:i-1,1:2])))
-
+  
   hc.build$merge1 <- ifelse(is.na(hc.build$merge1) == T, to.merge, hc.build$merge1)
-
+  
   hc.build <- hc.build[-1,]
-
+  
   height <- cumsum(as.numeric(names(data.collector[2:length(data.collector)])))
   order <- seq(1:length(data.collector))
-
+  
   m <- matrix(c(unlist(hc.build$merge1), unlist(hc.build$merge2)), nrow = length(hc.build$merge1))
   hc <- list()
   hc$merge <- m
@@ -139,15 +128,15 @@ vnc_clust <- function (time, values, distance.measure = c("sd", "cv")) {
 #' @return A scree plot
 #' @export
 vnc_scree <- function (time, values, distance.measure = c("sd", "cv")) {
-
+  
   if (missing(distance.measure)) distance.measure <- "sd"
-
+  
   if(is.sequence(time) == F) stop ("Your data doesn't appear to be formatted correctly. You must have 2 columns: one for years (with no missing values) and one for a continuous variable")
-
+  
   input <- as.vector(values)
   years <- as.vector(time)
   names(input) <- years
-
+  
   data.collector <- list()
   data.collector[["0"]] <- input
   position.collector <- list()
@@ -188,5 +177,5 @@ vnc_scree <- function (time, values, distance.measure = c("sd", "cv")) {
   grid()
   text(c(1:length(years))[-length(years)], as.numeric(rev(names(data.collector)))[-length(years)],
        labels = round(as.numeric(rev(names(data.collector))), 2)[-length(years)], cex = 0.8)
-
+  
 }
