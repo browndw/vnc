@@ -5,16 +5,16 @@
 is.sequence <- function(x, ...)
   UseMethod("is.sequence", x)
 
-#' A function to test the "evenness" of a sequence.
-#' @param x A vector of integers or number
+#' Setting the default value for is.sequence methods.
+#' @param x A vector of integers or numbers
 #' @return A logical value
 #' @export
-is.test <- function(x, ...){
+is.sequence.default <- function(x, ...){
   FALSE
 }
 
 #' A function to test the "evenness" of a sequence.
-#' @param x A vector of integers or number
+#' @param x A vector of numbers
 #' @return A logical value
 #' @export
 is.sequence.numeric <- function(x, tol = sqrt(.Machine$double.eps), ...){
@@ -24,7 +24,7 @@ is.sequence.numeric <- function(x, tol = sqrt(.Machine$double.eps), ...){
 }
 
 #' A function to test the "evenness" of a sequence.
-#' @param x A vector of integers or number
+#' @param x A vector of integers
 #' @return A logical value
 #' @export
 is.sequence.integer <- function(x, ...){
