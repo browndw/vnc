@@ -4,17 +4,17 @@
 #' @export
 is.sequence <- function(x, ...)
   UseMethod("is.sequence", x)
-
+#' @export
 is.sequence.default <- function(x, ...){
   FALSE
 }
-
+#' @export
 is.sequence.numeric <- function(x, tol = sqrt(.Machine$double.eps), ...){
   if(anyNA(x) || any(is.infinite(x)) || length(x) <= 1 || diff(x[1:2]) == 0)
     return(FALSE)
   diff(range(diff(x))) <= tol
 }
-
+#' @export
 is.sequence.integer <- function(x, ...){
   is.sequence.numeric(x, ...)
 }
