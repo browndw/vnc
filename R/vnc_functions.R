@@ -4,16 +4,28 @@
 #' @export
 is.sequence <- function(x, ...)
   UseMethod("is.sequence", x)
+
+#' A function to test the "evenness" of a sequence.
+#' @param x A vector of integers or number
+#' @return A logical value
 #' @export
 is.sequence.default <- function(x, ...){
   FALSE
 }
+
+#' A function to test the "evenness" of a sequence.
+#' @param x A vector of integers or number
+#' @return A logical value
 #' @export
 is.sequence.numeric <- function(x, tol = sqrt(.Machine$double.eps), ...){
   if(anyNA(x) || any(is.infinite(x)) || length(x) <= 1 || diff(x[1:2]) == 0)
     return(FALSE)
   diff(range(diff(x))) <= tol
 }
+
+#' A function to test the "evenness" of a sequence.
+#' @param x A vector of integers or number
+#' @return A logical value
 #' @export
 is.sequence.integer <- function(x, ...){
   is.sequence.numeric(x, ...)
