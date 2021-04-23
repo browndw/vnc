@@ -1,16 +1,18 @@
 #' A function to test the "evenness" of a sequence.
-#' @param x A vector of integers or number
+#' @param x A vector of integers or numbers.
 #' @param ... additional parameters passed to default sequence method.
-#' @method A logical value
 #' @export
 is.sequence <- function(x, ...){
   UseMethod("is.sequence", x)
 }
 
+#' @rdname is.sequence
+#' @export
 is.sequence.default <- function(x, ...){
   FALSE
 }
 
+#' @rdname is.sequence
 #' @export
 is.sequence.numeric <- function(x, tol = sqrt(.Machine$double.eps), ...){
   if(anyNA(x) || any(is.infinite(x)) || length(x) <= 1 || diff(x[1:2]) == 0)
@@ -18,6 +20,8 @@ is.sequence.numeric <- function(x, tol = sqrt(.Machine$double.eps), ...){
   diff(range(diff(x))) <= tol
 }
 
+#' @rdname is.sequence
+#' @export
 is.sequence.integer <- function(x, ...){
   is.sequence.numeric(x, ...)
 }
