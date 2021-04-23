@@ -9,7 +9,7 @@ is.sequence <- function(x, ...)
 #' @param x A vector of integers or number
 #' @return A logical value
 #' @export
-is.sequence.default <- function(x, ...){
+is.test <- function(x, ...){
   FALSE
 }
 
