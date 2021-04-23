@@ -3,8 +3,9 @@
 #' @param ... additional parameters passed to default sequence method.
 #' @method A logical value
 #' @export
-is.sequence <- function(x, ...)
+is.sequence <- function(x, ...){
   UseMethod("is.sequence", x)
+}
 
 is.sequence.default <- function(x, ...){
   FALSE
