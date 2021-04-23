@@ -29,7 +29,8 @@ vnc_clust <- function (time, values, distance.measure = c("sd", "cv")) {
   
   if (missing(distance.measure)) distance.measure <- "sd"
   
-  if(is.sequence(time) == F) stop ("Your data doesn't appear to be formatted correctly. You must have 2 columns: one for years (with no missing values) and one for a continuous variable")
+  if(is.sequence(time) == F) stop ("It appears that your time series contains gaps or is not evenly spaced.")
+  if(length(time) != length(values)) stop ("Your time a values vectors must be the same length.")
   
   input <- as.vector(values)
   years <- as.vector(time)
@@ -119,7 +120,8 @@ vnc_scree <- function (time, values, distance.measure = c("sd", "cv")) {
   
   if (missing(distance.measure)) distance.measure <- "sd"
   
-  if(is.sequence(time) == F) stop ("Your data doesn't appear to be formatted correctly. You must have 2 columns: one for years (with no missing values) and one for a continuous variable")
+  if(is.sequence(time) == F) stop ("It appears that your time series contains gaps or is not evenly spaced.")
+  if(length(time) != length(values)) stop ("Your time a values vectors must be the same length.")
   
   input <- as.vector(values)
   years <- as.vector(time)
