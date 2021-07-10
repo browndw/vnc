@@ -43,7 +43,7 @@ vnc_clust <- function (time, values, distance.measure = c("sd", "cv")) {
   overall.distance <- 0
   number.of.steps <- length(input) - 1
   for (i in 1:number.of.steps) {
-    cat(i/number.of.steps, "\n", sep = "")
+    #cat(i/number.of.steps, "\n", sep = "")
     difference.checker <- numeric()
     for (j in 1:(length(unique(names(input))) - 1)) {
       first.name <- unique(names(input))[j]
@@ -134,7 +134,7 @@ vnc_scree <- function (time, values, distance.measure = c("sd", "cv")) {
   overall.distance <- 0
   number.of.steps <- length(input) - 1
   for (i in 1:number.of.steps) {
-    cat(i/number.of.steps, "\n", sep = "")
+    #cat(i/number.of.steps, "\n", sep = "")
     difference.checker <- numeric()
     for (j in 1:(length(unique(names(input))) - 1)) {
       first.name <- unique(names(input))[j]
