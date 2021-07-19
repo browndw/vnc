@@ -26,4 +26,4 @@ Then we could generate a VNC dendrogram by first creating an **hclust** object t
 hc <- vnc_clust(df$year, df$counts_permil, distance.measure = "sd")
 plot(hc, hang = -1)
 ```
-For more details, consult the vignette.
+For more details, consult the [vignette](http://htmlpreview.github.io/?https://raw.githubusercontent.com/browndw/vnc/main/vignettes/introduction.html).
