@@ -1,6 +1,6 @@
 ---
 title: "Introduction to the vnc R package"
-uthor: "David Brown"
+author: "David Brown"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{introduction}
