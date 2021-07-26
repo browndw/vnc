@@ -2,6 +2,10 @@
 title: "Introduction to the vnc R package"
 author: "David Brown"
 output: rmarkdown::html_vignette
+bibliography: vnc_bib.bib
+link-citations: yes
+nocite: |
+  @*
 vignette: >
   %\VignetteIndexEntry{introduction}
   %\VignetteEngine{knitr::rmarkdown}
@@ -13,6 +17,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+options(rmarkdown.html_vignette.check_title = FALSE)
 ```
 
 ## Load the vnc package
@@ -38,7 +43,7 @@ knitr::kable(witch_hunt, caption = "Data included with vnc package")
 
 The purpose of [Variability-Based Neighbor Clustering](https://www.oxfordhandbooks.com/view/10.1093/oxfordhb/9780199922765.001.0001/oxfordhb-9780199922765-e-14) is to divide the use of a word or phrase into historical periods based on changes in frequency. Rather than assuming that a year, decade, or other division is statistically meaningful, the algorithm clusters segments of time into periods.
 
-For this to work, the time data that we input must be evenly spaced. There can't be any gaps. In the data above, it is clear that there are many missing decades. If we tried to plot the data, a function called **is.sequence()** would halt the process and produce an error.
+For this to work, the time data that we input must be evenly spaced. There can't be any gaps. In the data above, it is clear that there are many missing decades. If we tried to plot the data, a function called **is.sequence( )** would halt the process and produce an error.
 
 ```{r check_seq, error=TRUE}
 vnc_scree(witch_hunt$decade, witch_hunt$counts_permil, distance.measure = "sd")
@@ -126,4 +131,7 @@ ggplot(clust_df, aes(x = as.numeric(rownames(clust_df)), y = counts_permil)) +
   xlab("") + ylab("frequency (per million words)") +
   theme_minimal()
 ```
+
+## Bibliography
+
 
