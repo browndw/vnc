@@ -21,7 +21,7 @@ is.sequence <- function(x, tol = sqrt(.Machine$double.eps), ...){
 #' can be used to produce not only base R dendrograms, but can be passed
 #' to other functions for more detailed and controlled plotting.
 #' @param time A vector of sequential time intervals like years or decades
-#' @param values A vector containing normaized frequency counts
+#' @param values A vector containing normalized frequency counts
 #' @param distance.measure Indicating whether the standard deviation or coefficient of variation should be used in dinstance calculations
 #' @return An hclust object
 #' @export
