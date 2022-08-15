@@ -11,19 +11,4 @@ Use devtools to install the package.
 ```r
 devtools::install_github("browndw/vnc")
 ```
-## Running vnc
-
-The package contains two basic functions. The first, **vnc_scree( )** requires a vector representing a time sequence, which would typically be a numeric vector of years (1900, 1901, 1902, ...) or decades (1900, 1910, 1920, ...). It also requires a vector representing normalized frequencies of the word or phrase being analyzed.
-
-For example, imagine that historical changes in the frequency of the word [*teenager*](https://books.google.com/ngrams/graph?content=teenager&year_start=1800&year_end=2019&corpus=26&smoothing=3) were being analyzed, and we had a data.frame **df** with a column of years and column of normalized counts per million words. We would generate the scree plot:
-
-```r
-vnc_scree(df$year, df$counts_permil, distance.measure = "sd")
-```
-Then we could generate a VNC dendrogram by first creating an **hclust** object then plotting it:
-
-```r
-hc <- vnc_clust(df$year, df$counts_permil, distance.measure = "sd")
-plot(hc, hang = -1)
-```
-For more details, consult the [vignette](http://htmlpreview.github.io/?https://raw.githubusercontent.com/browndw/vnc/main/vignettes/introduction.html).
+The package documentation is available on [readthedocs](https://cmu-textstat-docs.readthedocs.io/en/latest/vnc/vnc.html).
