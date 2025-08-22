@@ -3,3 +3,6 @@
 export(is.sequence)
 export(vnc_clust)
 export(vnc_scree)
+importFrom(graphics,grid)
+importFrom(graphics,text)
+importFrom(stats,sd)

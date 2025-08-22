@@ -55,8 +55,8 @@ To prevent this error, we could fill in missing decades with zero counts. Altern
 
 ```{r load_data}
 wh_d <- witch_hunt %>%
-  filter(decade > 1899) %>% 
-  dplyr::select(decade, counts_permil)
+  filter(decade > 1899) %>%
+  select(decade, counts_permil)
 ```
 
 ## Generate a scree plot
@@ -133,5 +133,3 @@ ggplot(clust_df, aes(x = as.numeric(rownames(clust_df)), y = counts_permil)) +
 ```
 
 ## Bibliography
-
-

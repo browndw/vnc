@@ -2,16 +2,21 @@
 % Please edit documentation in R/vnc_functions.R
 \name{is.sequence}
 \alias{is.sequence}
-\title{A function to test the "evenness" of a sequence.}
+\title{Test the "evenness" of a sequence.}
 \usage{
-is.sequence(x, ...)
+is.sequence(x, tol = sqrt(.Machine$double.eps), ...)
 }
 \arguments{
-\item{x}{A vector of integers or number}
+\item{x}{A vector of integers or numbers.}
+
+\item{tol}{Tolerance to use when checking that sequence steps are identical}
+
+\item{...}{additional parameters passed to default sequence method.}
 }
 \value{
-A logical value
+Logical (whether the sequence is even)
 }
 \description{
-A function to test the "evenness" of a sequence.
+A sequence is "even" if it contains no \code{NA} or infinite values, and the
+interval between each successive element is (approximately) identical.
 }

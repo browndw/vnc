@@ -2,7 +2,7 @@
 % Please edit documentation in R/vnc_functions.R
 \name{vnc_scree}
 \alias{vnc_scree}
-\title{This is a simple function to return a scree plot based on the VNC algorithm.}
+\title{Produce a scree plot based on the VNC algorithm}
 \usage{
 vnc_scree(time, values, distance.measure = c("sd", "cv"))
 }
@@ -11,11 +11,12 @@ vnc_scree(time, values, distance.measure = c("sd", "cv"))
 
 \item{values}{A vector containing normaized frequency counts}
 
-\item{distance.measure}{Indicating whether the standard deviation or coefficient of variation should be used in dinstance calculations}
+\item{distance.measure}{Indicating whether the standard deviation or
+coefficient of variation should be used in distance calculations}
 }
 \value{
 A scree plot
 }
 \description{
-This is a simple function to return a scree plot based on the VNC algorithm.
+Produce a scree plot based on the VNC algorithm
 }
