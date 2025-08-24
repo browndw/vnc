@@ -36,7 +36,6 @@ library(ggdendro)
 Let's begin by looking at the frequencies of the bigram *witch hunt* and the plural *witch hunts*, which are available in the package data and come from Google Books.
 
 ```{r}
-data("witch_hunt", package = "vnc")
 knitr::kable(witch_hunt, caption = "Data included with vnc package")
 ```
 

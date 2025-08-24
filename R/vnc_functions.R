@@ -50,9 +50,6 @@ is_sequence <- function(x, tol = sqrt(.Machine$double.eps)) {
 #'   \doi{10.1093/oxfordhb/9780199922765.013.0014}
 #' @examples
 #' \dontrun{
-#' # Load example data
-#' data(witch_hunt)
-#' 
 #' # First filter to complete decades only (evenly spaced sequence)
 #' wh_complete <- witch_hunt[witch_hunt$decade %in% seq(1800, 2000, 10), ]
 #' 
@@ -181,12 +178,9 @@ vnc_clust <- function(time, values, distance_measure = c("sd", "cv")) {
 #' @return A scree plot
 #' @examples
 #' \dontrun{
-#' # Load example data
-#' data(witch_hunt)
-#' 
 #' # First filter to complete decades only (evenly spaced sequence)
 #' wh_complete <- witch_hunt[witch_hunt$decade %in% seq(1800, 2000, 10), ]
-#' 
+#'
 #' # Create scree plot
 #' vnc_scree(wh_complete$decade, wh_complete$counts_permil)
 #' }

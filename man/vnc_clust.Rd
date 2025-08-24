@@ -30,9 +30,6 @@ detailed and controlled plotting.
 }
 \examples{
 \dontrun{
-# Load example data
-data(witch_hunt)
-
 # First filter to complete decades only (evenly spaced sequence)
 wh_complete <- witch_hunt[witch_hunt$decade \%in\% seq(1800, 2000, 10), ]
 
