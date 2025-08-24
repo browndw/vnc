@@ -9,7 +9,8 @@ A data frame containing 17 observations of 4 variables:
 \describe{
 \item{decade}{Decade}
 \item{token_count}{Number of uses of "witch hunt" and variants}
-\item{total_count}{Total number of tokens in Google Books corpus in this decade}
+\item{total_count}{Total number of tokens in Google Books corpus in
+this decade}
 \item{counts_permil}{Uses of "witch hunt" per million tokens}
 }
 }
@@ -18,11 +19,16 @@ Google Books Ngram Viewer Datasets, at
 \url{https://storage.googleapis.com/books/ngrams/books/datasetsv3.html}
 }
 \usage{
-witch_hunt
+data(witch_hunt)
 }
 \description{
 Gives the usage of "witch hunt" in each decade for which there is Google
-Books data. The data is lemmatized (including both singular and plural) and case
-insensitive (including, for example, "witch hunt" and "WITCH HUNTS").
+Books data. The data is lemmatized (including both singular and plural)
+and case insensitive (including, for example, "witch hunt" and "WITCH
+HUNTS").
+}
+\examples{
+data(witch_hunt)
+head(witch_hunt)
 }
 \keyword{datasets}
