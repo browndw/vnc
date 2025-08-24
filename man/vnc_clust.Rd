@@ -4,15 +4,15 @@
 \alias{vnc_clust}
 \title{Conduct variability-based neighbor clustering}
 \usage{
-vnc_clust(time, values, distance.measure = c("sd", "cv"))
+vnc_clust(time, values, distance_measure = c("sd", "cv"))
 }
 \arguments{
 \item{time}{A vector of sequential time intervals like years or decades}
 
 \item{values}{A vector containing normalized frequency counts}
 
-\item{distance.measure}{Indicating whether the standard deviation or
-coefficient of variation should be used in dinstance calculations}
+\item{distance_measure}{Indicating whether the standard deviation or
+coefficient of variation should be used in distance calculations}
 }
 \value{
 An hclust object
@@ -21,15 +21,30 @@ An hclust object
 The idea is to use hierarchical clustering to aid "bottom up" periodization
 of language change. The functions below are built on their original code
 here:
-http://global.oup.com/us/companion.websites/fdscontent/uscompanion/us/static/companion.websites/nevalainen/Gries-Hilpert_web_final/vnc.individual.html
+http://global.oup.com/us/companion.websites/fdscontent/uscompanion/us/static/
+companion.websites/nevalainen/Gries-Hilpert_web_final/vnc.individual.html
 However, rather than producing a plot, this function returns an "hclust"
 object. The advantage, is that an "hclust" object can be used to produce not
 only base R dendrograms, but can be passed to other functions for more
 detailed and controlled plotting.
 }
+\examples{
+\dontrun{
+# Load example data
+data(witch_hunt)
+
+# First filter to complete decades only (evenly spaced sequence)
+wh_complete <- witch_hunt[witch_hunt$decade \%in\% seq(1800, 2000, 10), ]
+
+# Perform clustering
+hc <- vnc_clust(wh_complete$decade, wh_complete$counts_permil)
+plot(hc)
+}
+}
 \references{
 Gries and Hilpert (2012).
-"Variability-based neighbor clustering: A bottom-up approach to periodization in historical linguistics",
+"Variability-based neighbor clustering: A bottom-up approach to
+periodization in historical linguistics",
 in Terttu Nevalainen, and Elizabeth Closs Traugott (eds), \emph{The Oxford
 Handbook of the History of English}.
 \doi{10.1093/oxfordhb/9780199922765.013.0014}
