@@ -1,16 +1,24 @@
 Package: vnc
 Title: Variability-Based Neighbor Clustering for Time-Series Data
-Version: 1.0
+Version: 1.0.1
 Authors@R: 
     person(given = "David",
            family = "Brown",
            role = c("aut", "cre"),
            email = "dwb2@andrew.cmu.edu",
            comment = c(ORCID = "0000-0001-7745-6354"))
-Description: What the package does (one paragraph).
+Description: Implements the Variability-Based Neighbor Clustering (VNC) algorithm 
+    for bottom-up periodization in diachronic linguistics, based on the 
+    work of Gries and Hilpert (2012) <doi:10.1093/oxfordhb/9780199922765.013.0014>. 
+    VNC uses hierarchical clustering to identify periods of language change by 
+    grouping adjacent time points with similar frequency patterns. Unlike 
+    traditional approaches that impose arbitrary time divisions, this method 
+    identifies statistically meaningful periods based on variability in linguistic 
+    data. The package returns 'hclust' objects that can be used with base R 
+    plotting functions or enhanced visualization packages for flexible dendrogram 
+    creation and analysis.
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: TRUE
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Depends: 
@@ -20,5 +28,7 @@ Suggests:
     knitr,
     dendextend,
     tidyverse,
-    ggdendro
+    ggdendro,
+    testthat (>= 3.0.0)
 VignetteBuilder: knitr
+Config/testthat/edition: 3
