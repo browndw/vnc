@@ -4,14 +4,12 @@
 \alias{is_sequence}
 \title{Test the "evenness" of a sequence.}
 \usage{
-is_sequence(x, tol = sqrt(.Machine$double.eps), ...)
+is_sequence(x, tol = sqrt(.Machine$double.eps))
 }
 \arguments{
 \item{x}{A vector of integers or numbers.}
 
 \item{tol}{Tolerance to use when checking that sequence steps are identical}
-
-\item{...}{additional parameters passed to default sequence method.}
 }
 \value{
 Logical (whether the sequence is even)

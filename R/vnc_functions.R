@@ -5,7 +5,6 @@
 #'
 #' @param x A vector of integers or numbers.
 #' @param tol Tolerance to use when checking that sequence steps are identical
-#' @param ... additional parameters passed to default sequence method.
 #' @return Logical (whether the sequence is even)
 #' @examples
 #' # Even sequence
@@ -17,7 +16,7 @@
 #' # Sequence with gaps
 #' is_sequence(c(1, 2, 4, 5, 6))
 #' @export
-is_sequence <- function(x, tol = sqrt(.Machine$double.eps), ...) {
+is_sequence <- function(x, tol = sqrt(.Machine$double.eps)) {
   if (anyNA(x) || any(is.infinite(x)) || length(x) <= 1 ||
         diff(x[1:2]) == 0) {
     return(FALSE)
