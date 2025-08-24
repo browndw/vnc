@@ -1,0 +1,15 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^README\.Rmd$
+^README-.*\.png$
+^\.travis\.yml$
+^\.github$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^\.DS_Store$
+^\.git$
+^\.gitignore$
+^.*\.Rcheck$
+^.*\.tar\.gz$
+^cran-comments\.md$
