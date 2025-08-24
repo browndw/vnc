@@ -36,6 +36,7 @@ library(ggdendro)
 Let's begin by looking at the frequencies of the bigram *witch hunt* and the plural *witch hunts*, which are available in the package data and come from Google Books.
 
 ```{r}
+data("witch_hunt", package = "vnc")
 knitr::kable(witch_hunt, caption = "Data included with vnc package")
 ```
 
@@ -43,10 +44,10 @@ knitr::kable(witch_hunt, caption = "Data included with vnc package")
 
 The purpose of [Variability-Based Neighbor Clustering](https://www.oxfordhandbooks.com/view/10.1093/oxfordhb/9780199922765.001.0001/oxfordhb-9780199922765-e-14) is to divide the use of a word or phrase into historical periods based on changes in frequency. Rather than assuming that a year, decade, or other division is statistically meaningful, the algorithm clusters segments of time into periods.
 
-For this to work, the time data that we input must be evenly spaced. There can't be any gaps. In the data above, it is clear that there are many missing decades. If we tried to plot the data, a function called **is.sequence( )** would halt the process and produce an error.
+For this to work, the time data that we input must be evenly spaced. There can't be any gaps. In the data above, it is clear that there are many missing decades. If we tried to plot the data, a function called **is_sequence()** would halt the process and produce an error.
 
 ```{r check_seq, error=TRUE}
-vnc_scree(witch_hunt$decade, witch_hunt$counts_permil, distance.measure = "sd")
+vnc_scree(witch_hunt$decade, witch_hunt$counts_permil, distance_measure = "sd")
 ```
 
 ## Preparing the data
@@ -64,7 +65,7 @@ wh_d <- witch_hunt %>%
 We will use the data to generate a scree plot. The platting function takes a vector of time intervals and a vector of values.
 
 ```{r scree_plot,fig.height=4.5, fig.width=7}
-vnc_scree(wh_d$decade, wh_d$counts_permil, distance.measure = "sd")
+vnc_scree(wh_d$decade, wh_d$counts_permil, distance_measure = "sd")
 ```
 
 ## Generate an hclust object
@@ -72,7 +73,7 @@ vnc_scree(wh_d$decade, wh_d$counts_permil, distance.measure = "sd")
 Next, we can generate an **hclust** object using the **vnc_clust( )** function. Like the **vnc_scree( )** function, it takes a vector of time intervals and a vector of values.
 
 ```{r cluster, message = FALSE}
-hc <- vnc_clust(wh_d$decade, wh_d$counts_permil, distance.measure = "sd")
+hc <- vnc_clust(wh_d$decade, wh_d$counts_permil, distance_measure = "sd")
 ```
 
 ## Plot the dendrogram
@@ -98,7 +99,7 @@ We've already plotted our data with base R. However, if we want more control, we
 
 ```{r create_df}
 clust_df <- data.frame(decade=as.numeric(names(unlist(cut_hc))),
-  clust=rep(c(paste0("clust_", seq(1:length(cut_hc)))),
+  clust=rep(c(paste0("clust_", seq_along(cut_hc))),
   times=sapply(cut_hc,length)))
 
 clust_df <- clust_df %>% right_join(wh_d, by = "decade")
