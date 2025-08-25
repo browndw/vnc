@@ -46,3 +46,7 @@ in Terttu Nevalainen, and Elizabeth Closs Traugott (eds), \emph{The Oxford
 Handbook of the History of English}.
 \doi{10.1093/oxfordhb/9780199922765.013.0014}
 }
+\seealso{
+\code{\link[=hclust]{hclust()}} and related functions, such as \code{\link[=dendrogram]{dendrogram()}} and
+\code{\link[=cutree]{cutree()}}
+}

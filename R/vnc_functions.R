@@ -58,6 +58,8 @@ is_sequence <- function(x, tol = sqrt(.Machine$double.eps)) {
 #' plot(hc)
 #' }
 #' @importFrom stats sd
+#' @seealso [hclust()] and related functions, such as [dendrogram()] and
+#'   [cutree()]
 #' @export
 vnc_clust <- function(time, values, distance_measure = c("sd", "cv")) {
   distance_measure <- match.arg(distance_measure)
