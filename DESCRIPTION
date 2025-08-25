@@ -2,11 +2,17 @@ Package: vnc
 Title: Variability-Based Neighbor Clustering for Time-Series Data
 Version: 1.0.1
 Authors@R: 
-    person(given = "David",
-           family = "Brown",
-           role = c("aut", "cre"),
-           email = "dwb2@andrew.cmu.edu",
-           comment = c(ORCID = "0000-0001-7745-6354"))
+    c(
+      person(given = "David",
+             family = "Brown",
+             role = c("aut", "cre"),
+             email = "dwb2@andrew.cmu.edu",
+             comment = c(ORCID = "0000-0001-7745-6354")),
+      person(given = "Alex",
+             family = "Reinhart",
+             role = "aut",
+             email = "areinhar@stat.cmu.edu",
+             comment = c(ORCID = "0000-0002-6658-514X")))
 Description: Implements the Variability-Based Neighbor Clustering (VNC) algorithm 
     for bottom-up periodization in diachronic linguistics, based on the 
     work of Gries and Hilpert (2012) <doi:10.1093/oxfordhb/9780199922765.013.0014>. 
