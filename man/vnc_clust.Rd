@@ -2,49 +2,61 @@
 % Please edit documentation in R/vnc_functions.R
 \name{vnc_clust}
 \alias{vnc_clust}
-\title{Conduct variability-based neighbor clustering}
+\alias{vnc_scree}
+\title{Conduct variability-based neighbor clustering of time series data}
 \usage{
 vnc_clust(time, values, distance_measure = c("sd", "cv"))
+
+vnc_scree(time, values, distance_measure = c("sd", "cv"))
 }
 \arguments{
 \item{time}{A vector of sequential time intervals like years or decades}
 
-\item{values}{A vector containing normalized frequency counts}
+\item{values}{A vector containing normalized frequency counts, one per time
+interval}
 
 \item{distance_measure}{Indicating whether the standard deviation or
 coefficient of variation should be used in distance calculations}
 }
 \value{
-An hclust object
+For \code{vnc_clust()}, an hclust object. \code{vnc_scree()} produces a scree
+plot and returns no value.
 }
 \description{
-The idea is to use hierarchical clustering to aid "bottom up" periodization
-of language change. The functions below are built on their original code
-here:
-http://global.oup.com/us/companion.websites/fdscontent/uscompanion/us/static/
-companion.websites/nevalainen/Gries-Hilpert_web_final/vnc.individual.html
-However, rather than producing a plot, this function returns an "hclust"
-object. The advantage, is that an "hclust" object can be used to produce not
-only base R dendrograms, but can be passed to other functions for more
-detailed and controlled plotting.
+Variability-based neighbor clustering (VNC) breaks a time series into
+distinct periods based on hierarchical (agglomerative) clustering. VNC
+successively merges adjacent time periods based on their similarity, thus
+producing a hierarchical clustering of time periods. Unlike naive
+hierarchical clustering, this respects the time-ordering of the data, and
+does not merge observations from non-consecutive time periods.
+}
+\details{
+Time periods are merged based on the variability of the resulting cluster. At
+each step, time periods are merged by choosing the time periods with the
+smallest variability when merged; variability can be measured by standard
+deviation (\code{sd}) or coefficient of variation (\code{cv}).
 }
 \examples{
-\dontrun{
 # First filter to complete decades only (evenly spaced sequence)
-wh_complete <- witch_hunt[witch_hunt$decade \%in\% seq(1800, 2000, 10), ]
+wh_complete <- witch_hunt[witch_hunt$decade \%in\% seq(1880, 2000, 10), ]
 
 # Perform clustering
 hc <- vnc_clust(wh_complete$decade, wh_complete$counts_permil)
+
+# Produce a dendrogram
 plot(hc)
-}
+# Create scree plot
+vnc_scree(wh_complete$decade, wh_complete$counts_permil)
 }
 \references{
 Gries and Hilpert (2012).
-"Variability-based neighbor clustering: A bottom-up approach to
-periodization in historical linguistics",
+"Variability-based neighbor clustering: A bottom-up approach to periodization in historical linguistics",
 in Terttu Nevalainen, and Elizabeth Closs Traugott (eds), \emph{The Oxford
 Handbook of the History of English}.
 \doi{10.1093/oxfordhb/9780199922765.013.0014}
+
+Original implementation available via
+\url{https://global.oup.com/us/companion.websites/fdscontent/uscompanion/us/static/companion.websites/nevalainen/Gries-Hilpert_web_final/vnc.individual.html}
 }
 \seealso{
 \code{\link[=hclust]{hclust()}} and related functions, such as \code{\link[=dendrogram]{dendrogram()}} and

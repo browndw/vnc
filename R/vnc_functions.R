@@ -25,38 +25,44 @@ is_sequence <- function(x, tol = sqrt(.Machine$double.eps)) {
 }
 
 
-#' Conduct variability-based neighbor clustering
+#' Conduct variability-based neighbor clustering of time series data
 #'
-#' The idea is to use hierarchical clustering to aid "bottom up" periodization
-#' of language change. The functions below are built on their original code
-#' here:
-#' http://global.oup.com/us/companion.websites/fdscontent/uscompanion/us/static/
-#' companion.websites/nevalainen/Gries-Hilpert_web_final/vnc.individual.html
-#' However, rather than producing a plot, this function returns an "hclust"
-#' object. The advantage, is that an "hclust" object can be used to produce not
-#' only base R dendrograms, but can be passed to other functions for more
-#' detailed and controlled plotting.
+#' Variability-based neighbor clustering (VNC) breaks a time series into
+#' distinct periods based on hierarchical (agglomerative) clustering. VNC
+#' successively merges adjacent time periods based on their similarity, thus
+#' producing a hierarchical clustering of time periods. Unlike naive
+#' hierarchical clustering, this respects the time-ordering of the data, and
+#' does not merge observations from non-consecutive time periods.
+#'
+#' Time periods are merged based on the variability of the resulting cluster. At
+#' each step, time periods are merged by choosing the time periods with the
+#' smallest variability when merged; variability can be measured by standard
+#' deviation (`sd`) or coefficient of variation (`cv`).
 #'
 #' @param time A vector of sequential time intervals like years or decades
-#' @param values A vector containing normalized frequency counts
+#' @param values A vector containing normalized frequency counts, one per time
+#'   interval
 #' @param distance_measure Indicating whether the standard deviation or
 #'   coefficient of variation should be used in distance calculations
-#' @return An hclust object
+#' @return For `vnc_clust()`, an hclust object. `vnc_scree()` produces a scree
+#'   plot and returns no value.
 #' @references Gries and Hilpert (2012).
-#'   "Variability-based neighbor clustering: A bottom-up approach to
-#'   periodization in historical linguistics",
+#'   "Variability-based neighbor clustering: A bottom-up approach to periodization in historical linguistics",
 #'   in Terttu Nevalainen, and Elizabeth Closs Traugott (eds), *The Oxford
 #'   Handbook of the History of English*.
 #'   \doi{10.1093/oxfordhb/9780199922765.013.0014}
+#'
+#' Original implementation available via
+#' <https://global.oup.com/us/companion.websites/fdscontent/uscompanion/us/static/companion.websites/nevalainen/Gries-Hilpert_web_final/vnc.individual.html>
 #' @examples
-#' \dontrun{
 #' # First filter to complete decades only (evenly spaced sequence)
-#' wh_complete <- witch_hunt[witch_hunt$decade %in% seq(1800, 2000, 10), ]
-#' 
+#' wh_complete <- witch_hunt[witch_hunt$decade %in% seq(1880, 2000, 10), ]
+#'
 #' # Perform clustering
 #' hc <- vnc_clust(wh_complete$decade, wh_complete$counts_permil)
+#'
+#' # Produce a dendrogram
 #' plot(hc)
-#' }
 #' @importFrom stats sd
 #' @seealso [hclust()] and related functions, such as [dendrogram()] and
 #'   [cutree()]
@@ -171,26 +177,17 @@ vnc_clust <- function(time, values, distance_measure = c("sd", "cv")) {
   return(hc)
 }
 
-#' Produce a scree plot based on the VNC algorithm
+#' `vnc_scree()` produces a scree plot, allowing the user to choose the
+#' appropriate number of periods to select.
 #'
-#' @param time A vector of sequential time intervals like years or decades
-#' @param values A vector containing normalized frequency counts
-#' @param distance_measure Indicating whether the standard deviation or
-#'   coefficient of variation should be used in distance calculations
-#' @return A scree plot
 #' @examples
-#' \dontrun{
-#' # First filter to complete decades only (evenly spaced sequence)
-#' wh_complete <- witch_hunt[witch_hunt$decade %in% seq(1800, 2000, 10), ]
-#'
 #' # Create scree plot
 #' vnc_scree(wh_complete$decade, wh_complete$counts_permil)
-#' }
 #' @export
+#' @rdname vnc_clust
 #' @importFrom graphics grid text
 vnc_scree <- function(time, values, distance_measure = c("sd", "cv")) {
-
-  if (missing(distance_measure)) distance_measure <- "sd"
+  distance_measure <- match.arg(distance_measure)
 
   if (!is_sequence(time)) {
     stop("It appears that your time series contains gaps or is not ",
@@ -242,6 +239,7 @@ vnc_scree <- function(time, values, distance_measure = c("sd", "cv")) {
     data_collector[[(i + 1)]] <- input
     names(data_collector)[(i + 1)] <- distance
   }
+
   plot(rev(names(data_collector)) ~ seq_along(years), main = "'Scree' plot",
        xlab = "Clusters", ylab = "Distance in standard deviations",
        type = "n")
@@ -252,5 +250,4 @@ vnc_scree <- function(time, values, distance_measure = c("sd", "cv")) {
          as.numeric(rev(names(data_collector))), 2
        )[-length(years)],
        cex = 0.8)
-
 }
