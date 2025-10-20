@@ -7,7 +7,7 @@
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-The **vnc** package implements Variability-Based Neighbor Clustering (VNC) for diachronic linguistics and time-series analysis. Based on the work of [Gries and Hilpert (2012)](https://www.oxfordhandbooks.com/view/10.1093/oxfordhb/9780199922765.001.0001/oxfordhb-9780199922765-e-14), VNC provides a data-driven approach to periodization in historical linguistics by identifying statistically meaningful periods of language change.
+The **vnc** package implements Variability-Based Neighbor Clustering (VNC) for diachronic linguistics and time-series analysis. Based on the work of [Gries and Hilpert (2012)](https://doi.org/10.1093/oxfordhb/9780199922765.013.0014), VNC provides a data-driven approach to periodization in historical linguistics by identifying statistically meaningful periods of language change.
 
 ## Overview
 

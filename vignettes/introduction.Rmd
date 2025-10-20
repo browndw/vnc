@@ -41,7 +41,7 @@ knitr::kable(witch_hunt, caption = "Data included with vnc package")
 
 ## Periodization
 
-The purpose of [Variability-Based Neighbor Clustering](https://www.oxfordhandbooks.com/view/10.1093/oxfordhb/9780199922765.001.0001/oxfordhb-9780199922765-e-14) is to divide the use of a word or phrase into historical periods based on changes in frequency. Rather than assuming that a year, decade, or other division is statistically meaningful, the algorithm clusters segments of time into periods.
+The purpose of [Variability-Based Neighbor Clustering](https://doi.org/10.1093/oxfordhb/9780199922765.013.0014) is to divide the use of a word or phrase into historical periods based on changes in frequency. Rather than assuming that a year, decade, or other division is statistically meaningful, the algorithm clusters segments of time into periods.
 
 For this to work, the time data that we input must be evenly spaced. There can't be any gaps. In the data above, it is clear that there are many missing decades. If we tried to plot the data, a function called **is_sequence()** would halt the process and produce an error.
 
@@ -110,7 +110,7 @@ And check the result...
 knitr::kable(clust_df)
 ```
 
-Next, we'll convert our cluster data into dendrogram data using **as.dendrogram( )** from [**ggdendro**](https://cran.r-project.org/web/packages/ggdendro/vignettes/ggdendro.html). We also MUST maintain the order of our time series. There are a variety of ways of doing this, but [**dendextend**](https://cran.r-project.org/web/packages/dendextend/vignettes/dendextend.html) has an easy function called **sort( )**. We'll take the easy way!
+Next, we'll convert our cluster data into dendrogram data using **as.dendrogram( )** from [**ggdendro**](https://cran.r-project.org/package=ggdendro). We also MUST maintain the order of our time series. There are a variety of ways of doing this, but [**dendextend**](https://cran.r-project.org/package=dendextend) has an easy function called **sort( )**. We'll take the easy way!
 
 To get ggplot-friendly data, we have to transform it yet again... This time using the **ggdendro** package's function **dendro_data( )**.
 
