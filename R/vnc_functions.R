@@ -39,6 +39,14 @@ is_sequence <- function(x, tol = sqrt(.Machine$double.eps)) {
 #' smallest variability when merged; variability can be measured by standard
 #' deviation (`sd`) or coefficient of variation (`cv`).
 #'
+#' Note that Gries and Hilpert (2012) describe an "amalgamation rule", such as
+#' the average. After two time periods are merged, their values are replaced by
+#' a single value based on the amalgamation rule; if it is the average, their
+#' values are replaced by their average. This implementation does no
+#' amalgamation. The individual values of each time point are retained and used
+#' in the standard deviation calculations on subsequent steps. This matches
+#' their sample code but not the text describing their algorithm.
+#'
 #' @param time A vector of sequential time intervals like years or decades
 #' @param values A vector containing normalized frequency counts, one per time
 #'   interval
@@ -88,12 +96,15 @@ vnc_clust <- function(time, values, distance_measure = c("sd", "cv")) {
   position_collector[[1]] <- 0
   overall_distance <- 0
   number_of_steps <- length(input) - 1
+
   for (i in seq_len(number_of_steps)) {
     difference_checker <- numeric()
+
     for (j in seq_len(length(unique(names(input))) - 1)) {
       first_name <- unique(names(input))[j]
       second_name <- unique(names(input))[(j + 1)]
       pooled_sample <- input[names(input) %in% c(first_name, second_name)]
+
       if (distance_measure == "sd") {
         difference_checker[j] <- ifelse(sum(pooled_sample) == 0, 0,
                                         sd(pooled_sample))
@@ -103,9 +114,11 @@ vnc_clust <- function(time, values, distance_measure = c("sd", "cv")) {
                                         sd(pooled_sample) / mean(pooled_sample))
       }
     }
+
     pos_to_be_merged <- which.min(difference_checker)
     distance <- min(difference_checker)
     overall_distance <- overall_distance + distance
+
     lower_name <- unique(names(input))[pos_to_be_merged]
     higher_name <- unique(names(input))[(pos_to_be_merged + 1)]
     new_mean_age <- round(

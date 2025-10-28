@@ -35,6 +35,14 @@ Time periods are merged based on the variability of the resulting cluster. At
 each step, time periods are merged by choosing the time periods with the
 smallest variability when merged; variability can be measured by standard
 deviation (\code{sd}) or coefficient of variation (\code{cv}).
+
+Note that Gries and Hilpert (2012) describe an "amalgamation rule", such as
+the average. After two time periods are merged, their values are replaced by
+a single value based on the amalgamation rule; if it is the average, their
+values are replaced by their average. This implementation does no
+amalgamation. The individual values of each time point are retained and used
+in the standard deviation calculations on subsequent steps. This matches
+their sample code but not the text describing their algorithm.
 }
 \examples{
 # First filter to complete decades only (evenly spaced sequence)
